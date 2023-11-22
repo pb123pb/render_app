@@ -2,7 +2,7 @@ dash==2.13.0
 dash-core-components==2.0.0
 dash-html-components==2.0.0
 dash-table==5.0.0
-dash_auth = 2.0.0
+dash_auth==2.0.0
 os
 base64
 json==2.0.9
