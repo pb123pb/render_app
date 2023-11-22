@@ -7,8 +7,8 @@ import dash_auth
 import os
 
 # Obtener nombres de usuario y contraseñas de las variables de entorno
-USERNAME = os.environ.get('DASH_USERNAME', 'usuario_default')
-PASSWORD = os.environ.get('DASH_PASSWORD', 'contraseña_default')
+USERNAME = os.environ.get('DASH_USERNAME')
+PASSWORD = os.environ.get('DASH_PASSWORD')
 
 VALID_USERNAME_PASSWORD_PAIRS = {
     USERNAME: PASSWORD
