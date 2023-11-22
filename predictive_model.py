@@ -36,7 +36,7 @@ def get_google_sheets_data(token_data):
 
 # Función para realizar predicciones
 def predict_service_usage(language, area, industry, n):
-    free_slots_country_region, free_slots_therapists = get_google_sheets_data()
+    free_slots_country_region, free_slots_therapists = get_google_sheets_data(token_data)
     
     available_slots = pd.to_numeric(free_slots_country_region[language]).sum()
     patient_per_therapist_mean = pd.to_numeric(free_slots_therapists['Total Actives']).mean()
