@@ -20,7 +20,7 @@ label_encoders = load('label_encoders.joblib')
 def get_google_sheets_data(token_data):
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
     Therapist_Experience_ID = os.environ.get("THERAPIST_EXPERIENCE_ID")
-    credentials = Credentials.from_authorized_user_file(token_data, SCOPES)
+    credentials = Credentials.from_authorized_user_info(token_data, SCOPES)
     service = build("sheets", "v4", credentials = credentials)
     sheets = service.spreadsheets()
 
