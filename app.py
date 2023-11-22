@@ -117,7 +117,6 @@ def update_output(n_clicks, language, area, industry, n):
     ], style={'maxWidth': '500px', 'margin': 'auto'})
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
-
+    app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
 
