@@ -13,8 +13,8 @@ if encoded_token:
     token_data = json.loads(base64.b64decode(encoded_token.encode()).decode())
 
 # Cargar el modelo y los label encoders
-best_dt_regressor = load('C:/Users/Pablo/Documents/predictive_model/best_dt_regressor.joblib')
-label_encoders = load('C:/Users/Pablo/Documents/predictive_model/label_encoders.joblib')
+best_dt_regressor = load('best_dt_regressor.joblib')
+label_encoders = load('label_encoders.joblib')
 
 # Función para obtener datos de Google Sheets
 def get_google_sheets_data(token_data):
