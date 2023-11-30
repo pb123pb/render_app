@@ -38,7 +38,7 @@ def get_google_sheets_data(token_data):
 def predict_service_usage(language, area, industry, n):
     free_slots_country_region, free_slots_therapists = get_google_sheets_data(token_data)
     
-    available_slots = pd.to_numeric(free_slots_country_region[language]).sum()
+    available_slots = free_slots_language_continent.loc[free_slots_language_continent['Continent_therapist'] == area, language].astype(float).iloc[0]
     patient_per_therapist_mean = pd.to_numeric(free_slots_therapists['Total Actives']).mean()
 
     input_data = pd.DataFrame([[language, area, industry, n]],
