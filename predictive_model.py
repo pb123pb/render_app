@@ -24,19 +24,19 @@ def get_google_sheets_data(token_data):
     service = build("sheets", "v4", credentials = credentials)
     sheets = service.spreadsheets()
 
-    free_slots_country_region  = pd.DataFrame(sheets.values().get(spreadsheetId = Therapist_Experience_ID, range = "'Free slots by country and language'!A:BR").execute().get("values"))
+    free_slots_language_continent  = pd.DataFrame(sheets.values().get(spreadsheetId = Therapist_Experience_ID, range = "'Free slots by continent and language'!A:BR").execute().get("values"))
     free_slots_therapists  = pd.DataFrame(sheets.values().get(spreadsheetId = Therapist_Experience_ID, range = "Free_slots!A:BR").execute().get("values"))
 
     free_slots_therapists.columns = free_slots_therapists.iloc[0]
-    free_slots_country_region.columns = free_slots_country_region.iloc[0]
+    free_slots_language_continent.columns = free_slots_language_continent.iloc[0]
     free_slots_therapists = free_slots_therapists[1:] 
-    free_slots_country_region = free_slots_country_region[1:] 
+    free_slots_language_continent = free_slots_language_continent[1:] 
 
-    return free_slots_country_region, free_slots_therapists
+    return free_slots_language_continent, free_slots_therapists
 
 # Función para realizar predicciones
 def predict_service_usage(language, area, industry, n):
-    free_slots_country_region, free_slots_therapists = get_google_sheets_data(token_data)
+    free_slots_language_continent, free_slots_therapists = get_google_sheets_data(token_data)
     
     available_slots = free_slots_language_continent.loc[free_slots_language_continent['Continent_therapist'] == area, language].astype(float).iloc[0]
     patient_per_therapist_mean = pd.to_numeric(free_slots_therapists['Total Actives']).mean()
