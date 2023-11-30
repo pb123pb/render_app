@@ -58,7 +58,7 @@ app.layout = html.Div([
     html.Div([
         html.Div(className='form-group', children=[
             html.Label("Language", className='Label'),
-            dcc.Dropdown(id='language-input', options=languages_options, value='English', className='Dropdown', style={'font-size': '1em'}),
+            dcc.Dropdown(id='language-input', options=languages_options, value='Spanish', className='Dropdown', style={'font-size': '1em'}),
         ], style={'margin-bottom': '5px'}),
 
         html.Div(className='form-group', children=[
@@ -68,7 +68,7 @@ app.layout = html.Div([
 
         html.Div(className='form-group', children=[
             html.Label("Industry", className='Label'),
-            dcc.Dropdown(id='industry-input', options=industries_options, value='Technology', className='Dropdown', style={'font-size': '1em'}),
+            dcc.Dropdown(id='industry-input', options=industries_options, value='Healthcare', className='Dropdown', style={'font-size': '1em'}),
         ], style={'margin-bottom': '5px'}),
 
         html.Div(className='form-group', children=[
