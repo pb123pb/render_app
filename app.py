@@ -45,7 +45,7 @@ Therefore, the steps are:
 
 # Opciones para los desplegables
 languages_options = [{'label': lang, 'value': lang} for lang in ['English', 'Spanish', 'French', 'German']]
-areas_options = [{'label': area, 'value': area} for area in ['North America', 'Europe', 'Asia', 'South America', 'Africa']]
+areas_options = [{'label': area, 'value': area} for area in ['Europe', 'Asia']]
 industries_options = [{'label': ind, 'value': ind} for ind in ['Healthcare', 'Technology', 'Finance', 'Education', 'Retail']]
 
 # Diseño de la aplicación
@@ -63,7 +63,7 @@ app.layout = html.Div([
 
         html.Div(className='form-group', children=[
             html.Label("Area", className='Label'),
-            dcc.Dropdown(id='area-input', options=areas_options, value='North America', className='Dropdown', style={'font-size': '1em'}),
+            dcc.Dropdown(id='area-input', options=areas_options, value='Europe', className='Dropdown', style={'font-size': '1em'}),
         ], style={'margin-bottom': '5px'}),
 
         html.Div(className='form-group', children=[
