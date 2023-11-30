@@ -1,5 +1,6 @@
 import dash
 from dash import dcc, html, Input, Output, State, dash_table
+import dash_bootstrap_components as dbc
 import pandas as pd
 from predictive_model import predict_service_usage  # Asegúrate de que este módulo esté correctamente implementado
 
