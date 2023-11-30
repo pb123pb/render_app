@@ -21,7 +21,26 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
+extended_text = """
+A machine learning model was trained to predict the service usage percentage (number of people using the service out of the total potential) from a database. This database stores information from various companies, such as language, geographic area, business area, number of employees, and service usage.
 
+The machine learning model (random forest) has been benchmarked against a base model. It is trained to predict service usage based on other variables (language, geographic area, business area, and number of employees). The random forest model, which combines decision trees to improve predictions and prevent overfitting, has also been optimized using hyperparameter optimization techniques to enhance its performance in predictions.
+
+With this model, we can predict the service usage percentage using specific company information (language, geographic area, business area, and number of employees).
+
+- With the service usage percentage, we can calculate the number of people who will use the service (number of employees * service usage).
+- From our databases, we extract the number of available slots for the company's language, which allows us to calculate the slots that will need to be covered (estimated number of users – available slots in the company's language).
+- From the company's database, we can also obtain the average number of patients per therapist, which helps calculate the number of therapists needed to cover the required slots (slots needed / patients per therapist).
+
+Therefore, the steps are:
+
+1. Predicted Service Usage (%): prediction of service usage percentage (random forest machine learning model).
+2. Estimated Number of Users: number of users who will use the service (Predicted Service Usage * Number of employees).
+3. Available Slots: number of slots available in the language of the new company (extraction from ifeel's databases).
+4. Slots Needed: number of slots that will need to be covered (Estimated Number of Users – Available Slots).
+5. Patients per Therapist: current average of patients per therapist (extraction from ifeel's databases).
+6. Additional Therapists Needed: number of therapists we will need (Slots Needed / Patients per Therapist).
+"""
 
 # Opciones para los desplegables
 languages_options = [{'label': lang, 'value': lang} for lang in ['English', 'Spanish', 'French', 'German']]
@@ -68,8 +87,23 @@ app.layout = html.Div([
         color="#119DFF"
     ),
 
-    html.Div("This app uses a random forest model to predict service usage. The data for 'available slots' and 'patients per therapist' are obtained from company data.", 
-             style={'text-align': 'center', 'margin-top': '20px', 'color': '#ecf0f1', 'font-size': '0.8em'})
+    html.Div([
+        html.Span("This app uses a random forest model to predict service usage. The data for 'available slots' and 'patients per therapist' are obtained from company data. "),
+        html.A("Click here", id="open-modal-link", href="#", style={'color': '#007bff', 'cursor': 'pointer'}),
+        html.Span(" for more information.")
+    ], style={'text-align': 'center', 'margin-top': '20px', 'color': '#ecf0f1', 'font-size': '0.8em'}),
+
+    dbc.Modal(
+        [
+            dbc.ModalHeader("Detailed Information", style = {'color': 'black'}),
+            dbc.ModalBody(dcc.Markdown(extended_text), style={'color': 'black'}),
+            dbc.ModalFooter(
+                dbc.Button("Close", id="close-modal-btn", className="ml-auto")
+            ),
+        ],
+        id="modal",
+        is_open=False,
+    ),
 ], style={'textAlign': 'center', 'position': 'relative', 'padding-bottom': '40px'})
 
 
@@ -115,7 +149,17 @@ def update_output(n_clicks, language, area, industry, n):
             }
         )
     ], style={'maxWidth': '500px', 'margin': 'auto'})
-
+    
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open-modal-link", "n_clicks"), Input("close-modal-btn", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+    
 if __name__ == '__main__':
     app.run_server(debug=False, host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))
 
